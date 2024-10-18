@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Mobile App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            background-color: white;
+            padding: 52px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(107, 44, 44, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            color: #444;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+        .progress-bar {
+            height: 8px;
+            background: #353232;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .progress {
+            height: 100%;
+            width: 0;
+            background: #2575fc;
+            transition: width 0.3s;
+        }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #571a1a;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3222c3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 510px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #2770ee;
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="font-size: xx-large;">KYC Verification</h2>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="step active">
+            <input type="text" placeholder="Full Name" required>
+            <input type="text" placeholder="Date of Birth" required>
+            <button onclick="nextStep()">Next</button>
+        </div>
+        <div class="step">
+            <input type="file" required>
+            <button onclick="prevStep()">Back</button>
+            <button onclick="nextStep()">Next</button>
+        </div>
+        <div class="step">
+            <h3>Review & Submit ⭐⭐⭐⭐ </h3>
+            <button onclick="prevStep()">Back</button>
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+    <script>
+        let currentStep = 0;
+        const steps = document.querySelectorAll('.step');
+        const progress = document.getElementById('progress');
+
+        function showStep(step) {
+            steps.forEach((step, index) => {
+                step.classList.remove('active');
+                if (index === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+            progress.style.width = (currentStep / (steps.length - 1)) * 100 + '%';
+        }
+
+        function nextStep() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        showStep(currentStep);
+    </script>
+</body>
+</html>
